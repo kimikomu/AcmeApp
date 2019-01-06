@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Acme.Common;
 
 namespace Acme.Biz
 {
@@ -30,8 +31,18 @@ namespace Acme.Biz
 
         public string SayHello()
         {
+            // access a class within this component
+            var vendor = new Vendor();
+            vendor.SendWelcomeEmail("Message from Product.");
+
+            // access a class in a different component
+            var confirmation = new EmailService();
+            confirmation.SendMessage("New Product", this.ProductName, "sales@abc.com");
+
+            // access a static class
+            var log = LoggingService.LogAction("Saying hello");
+
             return $"Hello {ProductName} ({ProductId}): {Description}";
         }
-
     }
 }
